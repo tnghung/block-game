@@ -220,6 +220,42 @@ i.bxs-moon {
   color: var(--color);
 }
 
+.how-to {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-30%, -50%);
+  box-shadow: var(--wrapper-shadow);
+  padding: 1.2rem 2.4rem;
+  border-radius: 2rem;
+  color: var(--color);
+  background-color: var(--bg-color);
+  transition: transform 0.5 ease-in-out;
+}
+
+.how-to td {
+  padding-bottom: 1.4rem;
+  font-size: 1.4rem;
+}
+
+.how-to h3 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.keycap {
+  width: calc(var(--button-size) * 1.5);
+  color: var(--setting-btn-color);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-right: 1.4rem;
+}
+
+.keycap i {
+  font-size: 2.6rem;
+}
+
 /* State */
 .board-section,
 .infor-section,
