@@ -8,10 +8,10 @@
   --color: #243441;
   --border-radius: 20px;
   --setting-btn-color: #f88ab0;
-  --block-size: 25px;
-  --button-size: 55px;
-  --game-width: 350px;
-  --game-height: 730px;
+  --block-size: 2.5rem;
+  --button-size: 5.5rem;
+  --game-width: 35rem;
+  --game-height: 73rem;
 }
 
 /* ----- For dark mode ------ */
@@ -53,7 +53,7 @@ html {
   position: relative;
   z-index: 99;
   width: 100%;
-  height: 85%;
+  height: 90%;
   max-width: var(--game-width);
   max-height: var(--game-height);
   background-color: var(--bg-color);
@@ -62,4 +62,76 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.infor-section {
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+  padding: 2rem;
+  font-size: 2.5rem;
+  color: var(--color);
+}
+
+.infor-section #level {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3rem;
+  font-size: 1.8rem;
+}
+
+.board-section {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin: auto;
+  padding: 1rem;
+  box-shadow: var(--board-shadow-inset);
+  border-radius: 1rem;
+}
+
+.block {
+  width: var(--block-size);
+  height: var(--block-size);
+  border: 0.1px solid var(--bg-color);
+}
+
+.setting-section {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.setting-section button {
+  margin: 0 1rem;
+  color: var(--setting-btn-color);
+}
+
+i.bxs-sun {
+  display: none;
+}
+
+i.bxs-moon {
+  display: block;
+}
+
+.btn {
+  width: var(--button-size);
+  height: var(--button-size);
+  box-shadow: var(--btn-shadow);
+  border-radius: 2.5rem;
+  font-weight: 600;
+  font-size: 3rem;
+  color: var(--color);
+  outline: none;
+  border: none;
+  background-color: var(--bg-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:active {
+  box-shadow: var(--btn-shadow-inset);
 }
