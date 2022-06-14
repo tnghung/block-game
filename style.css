@@ -140,6 +140,7 @@ i.bxs-moon {
 
 .btn:active {
   box-shadow: var(--btn-shadow-inset);
+  transition: all 0.4s ease-in-out;
 }
 
 .control-section {
@@ -167,6 +168,68 @@ i.bxs-moon {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem;
+}
+
+.menu-section {
+  width: max-content;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.menu-section button {
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+.btn-width {
+  width: 20rem;
+  font-size: 2.2rem;
+}
+
+.infor-game {
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 2.5rem;
+}
+
+.infor-game h2 {
+  background-image: linear-gradient(to right, #43ffff, #fe44ff, #ef8f22, #f1f125, #45ff44);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.result {
+  text-align: center;
+  margin-bottom: 9rem;
+  display: none;
+}
+
+.result p {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  color: var(--setting-btn-color);
+  font-size: 2.8rem;
+}
+
+.result h1 {
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  font-size: 3rem;
+  color: var(--color);
+}
+
+/* State */
+.board-section,
+.infor-section,
+.control-section {
+  transform: scale(0);
+}
+
+#btn-new-game,
+#btn-pause {
+  display: none;
 }
 
 @media only screen and (max-width: 430px) {
