@@ -83,7 +83,7 @@ html {
 
 .board-section {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   margin: auto;
   padding: 1rem;
   box-shadow: var(--board-shadow-inset);
@@ -202,7 +202,7 @@ i.bxs-moon {
 
 .result {
   text-align: center;
-  margin-bottom: 9rem;
+  margin-top: 5rem;
   display: none;
 }
 
@@ -224,13 +224,17 @@ i.bxs-moon {
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translate(-30%, -50%);
   box-shadow: var(--wrapper-shadow);
   padding: 1.2rem 2.4rem;
   border-radius: 2rem;
   color: var(--color);
   background-color: var(--bg-color);
+  transform: translate(100%, -50%);
   transition: transform 0.5 ease-in-out;
+}
+
+.how-to.active {
+  transform: translate(-30%, -50%);
 }
 
 .how-to td {
@@ -263,10 +267,44 @@ i.bxs-moon {
   transform: scale(0);
 }
 
+.play .board-section,
+.play .infor-section,
+.play .control-section {
+  transform: scale(1);
+}
+
+.play .menu-section {
+  transform: scale(0);
+}
+
+.play #btn-pause {
+  display: flex;
+}
+
+.pause #btn-new-game,
+.end #btn-new-game {
+  display: block;
+}
+
+.end .result {
+  display: block;
+}
+
+.end #btn-play,
+.end .infor-game {
+  display: none;
+}
+
+.end .result {
+  display: block;
+}
+
 #btn-new-game,
 #btn-pause {
   display: none;
 }
+
+/* end state */
 
 @media only screen and (max-width: 430px) {
   :root {
@@ -282,7 +320,17 @@ i.bxs-moon {
     display: flex;
   }
 
+  .arrow-control {
+    gap: 0;
+  }
+
   .setting-section {
+    padding: unset;
+    margin-top: -10rem;
+    padding-bottom: 2rem;
+  }
+
+  .play .setting-section {
     position: absolute;
     flex-direction: column;
     bottom: unset;
@@ -291,5 +339,10 @@ i.bxs-moon {
     right: 1.8rem;
     padding: unset;
     row-gap: 1.8rem;
+  }
+
+  .how-to,
+  #btn-help {
+    display: none;
   }
 }
