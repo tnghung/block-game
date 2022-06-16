@@ -17,7 +17,8 @@ btns.forEach((e) => {
         break;
       }
       case 'btn-help': {
-        body.querySelector('.how-to').classList.toggle('active');
+        const how_to = document.querySelector('.how-to');
+        how_to.classList.toggle('active');
         break;
       }
       case 'btn-pause': {

@@ -12,6 +12,11 @@
   --button-size: 5.5rem;
   --game-width: 35rem;
   --game-height: 73rem;
+
+  --pink: #e84393;
+  --yellow: #e1b12c;
+  --blue: #00cec9;
+  --orange: #c23616;
 }
 
 /* ----- For dark mode ------ */
@@ -323,6 +328,76 @@ i.bxs-moon {
   animation: fall linear infinite;
 }
 
+/* Loading */
+.loading {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  z-index: 100;
+  animation: hide 0.5s linear forwards;
+  animation-delay: 2.75s;
+}
+
+.loading .square {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: calc(var(--block-size) * 4);
+  height: calc(var(--block-size) * 4);
+  overflow: hidden;
+  animation: rotate 0.5s linear forwards;
+  animation-delay: 2.2s;
+}
+
+.loading .square div {
+  width: var(--block-size);
+  height: var(--block-size);
+  border: 1px solid var(--bg-color);
+  background-color: var(--color);
+  transform: translateY(-500%);
+  animation: drop-down 0.6s linear forwards;
+}
+
+/* L vertical block */
+.loading .square div:nth-child(5),
+.loading .square div:nth-child(9),
+.loading .square div:nth-child(13),
+.loading .square div:nth-child(14) {
+  background-color: var(--pink);
+}
+
+/* S block */
+.loading .square div:nth-child(6),
+.loading .square div:nth-child(10),
+.loading .square div:nth-child(11),
+.loading .square div:nth-child(15) {
+  background-color: var(--yellow);
+  animation-delay: 0.5s;
+}
+
+/* L horizontal block */
+.loading .square div:nth-child(1),
+.loading .square div:nth-child(2),
+.loading .square div:nth-child(3),
+.loading .square div:nth-child(7) {
+  background-color: var(--blue);
+  animation-delay: 1.3s;
+}
+
+/* I block */
+.loading .square div:nth-child(4),
+.loading .square div:nth-child(8),
+.loading .square div:nth-child(12),
+.loading .square div:nth-child(16) {
+  background-color: var(--orange);
+  animation-delay: 1s;
+}
+/* End Loading */
+
 /* Animations */
 @keyframes fall {
   0% {
@@ -338,6 +413,36 @@ i.bxs-moon {
   100% {
     transform: translateY(2000%) rotate(90deg);
     opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes drop-down {
+  0% {
+    transform: translateY(-500%);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 

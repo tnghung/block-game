@@ -1,5 +1,6 @@
 const board = document.querySelector('.board-section');
 const container = document.querySelector('.container');
+const loading_square = document.querySelector('.square');
 for (let i = 0; i < 200; i++) {
   let block = '<div class="block"></div>';
   board.innerHTML += block;
@@ -36,5 +37,10 @@ const fall = function () {
     container.appendChild(img);
   }
 };
+
+// Make a square block with  matrix 4x4
+for (let i = 1; i <= 16; i++) {
+  loading_square.innerHTML += '<div></div>';
+}
 
 fall();
