@@ -81,6 +81,7 @@ html {
   font-size: 1.8rem;
 }
 
+/* Board section */
 .board-section {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
@@ -95,7 +96,9 @@ html {
   height: var(--block-size);
   border: 0.1px solid var(--bg-color);
 }
+/* End board section */
 
+/* Setting section */
 .setting-section {
   display: flex;
   justify-content: center;
@@ -114,7 +117,9 @@ i.bxs-sun {
 i.bxs-moon {
   display: block;
 }
+/* End setting section */
 
+/* Button style */
 .btn {
   width: var(--button-size);
   height: var(--button-size);
@@ -142,7 +147,9 @@ i.bxs-moon {
   box-shadow: var(--btn-shadow-inset);
   transition: all 0.4s ease-in-out;
 }
+/* End button style */
 
+/* Control section */
 .control-section {
   display: none;
   margin-left: 3.5rem;
@@ -169,7 +176,9 @@ i.bxs-moon {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem;
 }
+/* End control section */
 
+/* Menu section */
 .menu-section {
   width: max-content;
   position: absolute;
@@ -219,7 +228,9 @@ i.bxs-moon {
   font-size: 3rem;
   color: var(--color);
 }
+/* End menu section */
 
+/* How to section */
 .how-to {
   position: absolute;
   top: 50%;
@@ -230,11 +241,11 @@ i.bxs-moon {
   color: var(--color);
   background-color: var(--bg-color);
   transform: translate(100%, -50%);
-  transition: transform 0.5 ease-in-out;
 }
 
 .how-to.active {
   transform: translate(-30%, -50%);
+  transition: all 2.5 linear;
 }
 
 .how-to td {
@@ -259,6 +270,7 @@ i.bxs-moon {
 .keycap i {
   font-size: 2.6rem;
 }
+/* End how to section */
 
 /* State */
 .board-section,
@@ -303,9 +315,35 @@ i.bxs-moon {
 #btn-pause {
   display: none;
 }
-
 /* end state */
 
+/* Image fall animation */
+.container img.fall {
+  position: absolute;
+  animation: fall linear infinite;
+}
+
+/* Animations */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(2000%) rotate(90deg);
+    opacity: 1;
+  }
+}
+
+/* End animations */
+
+/* Media queries */
 @media only screen and (max-width: 430px) {
   :root {
     --block-size: 1.8rem;
@@ -346,3 +384,4 @@ i.bxs-moon {
     display: none;
   }
 }
+/* End media queries */
