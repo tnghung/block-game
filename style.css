@@ -246,11 +246,11 @@ i.bxs-moon {
   color: var(--color);
   background-color: var(--bg-color);
   transform: translate(100%, -50%);
+  transition: transform 0.5s ease-in-out;
 }
 
 .how-to.active {
   transform: translate(-30%, -50%);
-  transition: all 2.5 linear;
 }
 
 .how-to td {
@@ -456,7 +456,9 @@ i.bxs-moon {
 
   .game-wrapper {
     height: 100%;
+    width: 100%;
     max-width: 100%;
+    max-height: 100%;
   }
 
   .control-section {
