@@ -390,13 +390,13 @@ i.bxs-sun {
 /*  state  */
 
 .board-section,
-.info-section,
+.infor-section,
 .control-section {
   transform: scale(0);
 }
 
 .play .board-section,
-.play .info-section,
+.play .infor-section,
 .play .control-section {
   transform: scale(1);
 }
