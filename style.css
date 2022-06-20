@@ -8,18 +8,12 @@
   --color: #243441;
   --border-radius: 20px;
   --setting-btn-color: #f88ab0;
-  --block-size: 2rem;
-  --button-size: 5.5rem;
-  --game-width: 35rem;
-  --game-height: 73rem;
-
-  --pink: #e84393;
-  --yellow: #e1b12c;
-  --blue: #00cec9;
-  --orange: #c23616;
+  --block-size: 20px;
+  --button-size: 55px;
+  --game-width: 414px;
+  --game-height: 736px;
 }
 
-/* ----- For dark mode ------ */
 .dark {
   --bg-color: #243441;
   --color: #0affef;
@@ -38,7 +32,6 @@
 
 body,
 html {
-  font-size: 62.5%;
   font-family: 'Krona One', sans-serif;
   height: 100vh;
   background-color: var(--bg-color);
@@ -46,9 +39,13 @@ html {
   user-select: none;
 }
 
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .container {
   position: relative;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,12 +55,12 @@ html {
   position: relative;
   z-index: 99;
   width: 100%;
-  height: 95%;
   max-width: var(--game-width);
+  height: 100%;
   max-height: var(--game-height);
   background-color: var(--bg-color);
   box-shadow: var(--wrapper-shadow);
-  border-radius: 2rem;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -73,8 +70,8 @@ html {
   position: relative;
   text-align: center;
   font-weight: 600;
-  padding: 2rem;
-  font-size: 2.5rem;
+  padding: 20px;
+  font-size: 25px;
   color: var(--color);
 }
 
@@ -82,18 +79,27 @@ html {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 3rem;
-  font-size: 1.8rem;
+  left: 30px;
+  font-size: 18px;
 }
 
-/* Board section */
+.infor-game h2 {
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  text-align: center;
+  background-image: linear-gradient(to right, #43ffff, #fe44ff, #ef8f22, #f1f125, #45ff44);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .board-section {
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   margin: auto;
-  padding: 1rem;
+  padding: 10px;
   box-shadow: var(--board-shadow-inset);
-  border-radius: 1rem;
+  border-radius: 10px;
 }
 
 .block {
@@ -101,40 +107,36 @@ html {
   height: var(--block-size);
   border: 0.1px solid var(--bg-color);
 }
-/* End board section */
 
-/* Setting section */
 .setting-section {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 20px;
 }
 
 .setting-section button {
-  margin: 0 1rem;
+  margin: 0 10px;
   color: var(--setting-btn-color);
+}
+
+i.bxs-moon {
+  display: block;
 }
 
 i.bxs-sun {
   display: none;
 }
 
-i.bxs-moon {
-  display: block;
-}
-/* End setting section */
-
-/* Button style */
 .btn {
   width: var(--button-size);
   height: var(--button-size);
   box-shadow: var(--btn-shadow);
-  border-radius: 2.5rem;
+  border-radius: 25px;
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 30px;
   color: var(--color);
-  outline: none;
   border: none;
+  outline: none;
   background-color: var(--bg-color);
   cursor: pointer;
   display: flex;
@@ -142,150 +144,259 @@ i.bxs-moon {
   justify-content: center;
 }
 
-.btn--large {
-  width: 8rem;
-  height: 8rem;
-  font-size: 3rem;
-}
-
 .btn:active {
   box-shadow: var(--btn-shadow-inset);
-  transition: all 0.4s ease-in-out;
 }
-/* End button style */
 
-/* Control section */
 .control-section {
   display: none;
-  margin-left: 3.5rem;
 }
 
 .col {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  padding-left: 4rem;
+  padding: 10px;
 }
 
 .col:nth-child(1) {
-  width: 40%;
+  width: 60%;
 }
 
 .col:nth-child(2) {
-  width: 60%;
+  width: 40%;
 }
 
 .arrow-control {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem;
 }
-/* End control section */
 
-/* Menu section */
+.btn-large {
+  width: 80px !important;
+  height: 80px !important;
+  font-size: 30px;
+}
+
 .menu-section {
-  width: max-content;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .menu-section button {
-  margin: auto;
-  margin-bottom: 3rem;
+  margin-bottom: 30px;
 }
 
 .btn-width {
-  width: 20rem;
-  font-size: 2.2rem;
+  width: 200px;
 }
 
-.infor-game {
+.brand {
+  padding: 40px 0;
+  font-size: 25px;
+  color: var(--color);
   text-align: center;
-  padding: 4rem 0;
-  font-size: 2.5rem;
-}
-
-.infor-game h2 {
-  background-image: linear-gradient(to right, #43ffff, #fe44ff, #ef8f22, #f1f125, #45ff44);
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 .result {
   text-align: center;
-  margin-top: 5rem;
+  margin-bottom: 90px;
   display: none;
 }
 
 .result p {
-  margin-bottom: 1rem;
-  text-transform: uppercase;
   color: var(--setting-btn-color);
-  font-size: 2.8rem;
 }
 
 .result h1 {
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-  font-size: 3rem;
   color: var(--color);
+  margin-bottom: 30px;
 }
-/* End menu section */
 
-/* How to section */
 .how-to {
   position: absolute;
   top: 50%;
   right: 0;
-  box-shadow: var(--wrapper-shadow);
-  padding: 1.2rem 2.4rem;
-  border-radius: 2rem;
-  color: var(--color);
-  background-color: var(--bg-color);
   transform: translate(100%, -50%);
+  box-shadow: var(--wrapper-shadow);
+  padding: 30px;
+  border-radius: 20px;
+  background-color: var(--bg-color);
+  color: var(--color);
   transition: transform 0.5s ease-in-out;
 }
 
 .how-to.active {
-  transform: translate(-30%, -50%);
-}
-
-.how-to td {
-  padding-bottom: 1.4rem;
-  font-size: 1.4rem;
+  transform: translate(0, -50%);
 }
 
 .how-to h3 {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.how-to td {
+  padding: 10px;
+  font-size: 16px;
 }
 
 .keycap {
-  width: calc(var(--button-size) * 1.5);
+  width: calc(var(--button-size) * 2);
   color: var(--setting-btn-color);
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  margin-right: 1.4rem;
+  font-size: 30px;
 }
 
-.keycap i {
-  font-size: 2.6rem;
+/* images fall effect */
+.container img.fall {
+  position: absolute;
+  animation: fall linear infinite;
 }
-/* End how to section */
+/* end images fall effect */
 
-/* State */
+/* loading */
+.loading {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  z-index: 100;
+  animation: hide 1s linear forwards;
+  animation-delay: 2.7s;
+}
+
+.loading .square {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: calc(var(--block-size) * 4);
+  height: calc(var(--block-size) * 4);
+  overflow: hidden;
+  animation: rotate 0.5s linear forwards;
+  animation-delay: 2.2s;
+}
+
+.loading .square div {
+  width: var(--block-size);
+  height: var(--block-size);
+  border: 1px solid var(--bg-color);
+  background-color: var(--color);
+  animation: down 0.5s linear forwards;
+  transform: translateY(-500%);
+}
+
+/* L block */
+.loading .square div:nth-child(5),
+.loading .square div:nth-child(9),
+.loading .square div:nth-child(13),
+.loading .square div:nth-child(14) {
+  background-color: #e84393;
+}
+/* end L block */
+
+/* S block */
+.loading .square div:nth-child(6),
+.loading .square div:nth-child(10),
+.loading .square div:nth-child(11),
+.loading .square div:nth-child(15) {
+  background-color: #e1b12c;
+  animation-delay: 0.5s;
+}
+/* end S block */
+
+/* J block */
+.loading .square div:nth-child(1),
+.loading .square div:nth-child(2),
+.loading .square div:nth-child(3),
+.loading .square div:nth-child(7) {
+  background-color: #00cec9;
+  animation-delay: 1.5s;
+}
+/* end J block */
+
+/* I block */
+.loading .square div:nth-child(4),
+.loading .square div:nth-child(8),
+.loading .square div:nth-child(12),
+.loading .square div:nth-child(16) {
+  background-color: #c23616;
+  animation-delay: 1s;
+}
+/* end I block */
+
+/* end loading */
+
+/* animation */
+
+@keyframes down {
+  0% {
+    transform: translateY(-300%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(2000%) rotate(90deg);
+    opacity: 1;
+  }
+}
+
+/* end animation */
+
+/*  state  */
+
 .board-section,
-.infor-section,
+.info-section,
 .control-section {
   transform: scale(0);
 }
 
 .play .board-section,
-.play .infor-section,
+.play .info-section,
 .play .control-section {
   transform: scale(1);
 }
@@ -307,172 +418,35 @@ i.bxs-moon {
   display: block;
 }
 
-.end #btn-play,
-.end .infor-game {
+.end #btn-play {
   display: none;
-}
-
-.end .result {
-  display: block;
 }
 
 #btn-new-game,
 #btn-pause {
   display: none;
 }
-/* end state */
 
-/* Image fall animation */
-.container img.fall {
-  position: absolute;
-  animation: fall linear infinite;
-}
+/* end state  */
 
-/* Loading */
-.loading {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-color);
-  z-index: 100;
-  animation: hide 0.5s linear forwards;
-  animation-delay: 2.75s;
-}
-
-.loading .square {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: calc(var(--block-size) * 4);
-  height: calc(var(--block-size) * 4);
-  overflow: hidden;
-  animation: rotate 0.5s linear forwards;
-  animation-delay: 2.2s;
-}
-
-.loading .square div {
-  width: var(--block-size);
-  height: var(--block-size);
-  border: 1px solid var(--bg-color);
-  background-color: var(--color);
-  transform: translateY(-500%);
-  animation: drop-down 0.6s linear forwards;
-}
-
-/* L vertical block */
-.loading .square div:nth-child(5),
-.loading .square div:nth-child(9),
-.loading .square div:nth-child(13),
-.loading .square div:nth-child(14) {
-  background-color: var(--pink);
-}
-
-/* S block */
-.loading .square div:nth-child(6),
-.loading .square div:nth-child(10),
-.loading .square div:nth-child(11),
-.loading .square div:nth-child(15) {
-  background-color: var(--yellow);
-  animation-delay: 0.5s;
-}
-
-/* L horizontal block */
-.loading .square div:nth-child(1),
-.loading .square div:nth-child(2),
-.loading .square div:nth-child(3),
-.loading .square div:nth-child(7) {
-  background-color: var(--blue);
-  animation-delay: 1.3s;
-}
-
-/* I block */
-.loading .square div:nth-child(4),
-.loading .square div:nth-child(8),
-.loading .square div:nth-child(12),
-.loading .square div:nth-child(16) {
-  background-color: var(--orange);
-  animation-delay: 1s;
-}
-/* End Loading */
-
-/* Animations */
-@keyframes fall {
-  0% {
-    transform: translateY(0) rotate(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(2000%) rotate(90deg);
-    opacity: 1;
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(90deg);
-  }
-}
-
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-@keyframes drop-down {
-  0% {
-    transform: translateY(-500%);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* End animations */
-
-/* Media queries */
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 440px) {
   :root {
-    --block-size: 1.8rem;
+    --block-size: 18px;
   }
 
   .game-wrapper {
-    height: 100%;
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    box-shadow: unset;
+    border-radius: unset;
+    padding-bottom: 10px;
   }
 
   .control-section {
     display: flex;
   }
 
-  .arrow-control {
-    gap: 0;
-  }
-
   .setting-section {
     padding: unset;
-    margin-top: -10rem;
-    padding-bottom: 2rem;
+    margin-top: -40px;
   }
 
   .play .setting-section {
@@ -481,14 +455,20 @@ i.bxs-moon {
     bottom: unset;
     top: 50%;
     transform: translateY(-50%);
-    right: 1.8rem;
+    right: 2px;
     padding: unset;
-    row-gap: 1.8rem;
+  }
+
+  .setting-section button {
+    margin-bottom: 15px;
   }
 
   .how-to,
   #btn-help {
     display: none;
   }
+
+  .container img.fall {
+    display: none;
+  }
 }
-/* End media queries */

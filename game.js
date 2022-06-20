@@ -44,25 +44,23 @@ const resetGrid = function (grid) {
 };
 
 // Create new block function
-const newBlock = function (blocks, colors, start_x, start_y) {
+const newTetromino = function (blocks, colors, start_x, start_y) {
   let index = Math.floor(Math.random() * blocks.length);
 
   return {
-    block: blocks[index],
+    block: JSON.parse(JSON.stringify(blocks[index])),
     color: colors[index],
     x: start_x,
     y: start_y,
   };
 };
 
-let position = Math.floor(Math.random() * -7) + 4;
-
 // Draw block on field
-const drawBlock = function (tetromino, grid) {
+const drawTetromino = function (tetromino, grid) {
   tetromino.block.forEach((row, i) => {
     row.forEach((value, j) => {
       let x = tetromino.x + i;
-      let y = tetromino.y + i - j + position;
+      let y = tetromino.y + j;
       if (value > 0) {
         field[grid.board[x][y].index].style.background = tetromino.color;
       }
@@ -71,11 +69,11 @@ const drawBlock = function (tetromino, grid) {
 };
 
 // Clear block on field
-const clearBlock = function (tetromino, grid) {
+const clearTetromino = function (tetromino, grid) {
   tetromino.block.forEach((row, i) => {
     row.forEach((value, j) => {
       let x = tetromino.x + i;
-      let y = tetromino.y + i - j + position;
+      let y = tetromino.y + j;
       if (value > 0) {
         field[grid.board[x][y].index].style.background = TRANSPARENT;
       }
@@ -83,11 +81,22 @@ const clearBlock = function (tetromino, grid) {
   });
 };
 
+// Move block down
+const moveDown = function (block, grid) {
+  clearTetromino(block, grid);
+  block.x++;
+  drawTetromino(block, grid);
+};
 
+// Check block is touch bottom?
+
+// --------- Demo ----------
 let grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
-let blockGame = newBlock(BLOCKS, COLORS, START_X, START_Y);
+let blockGame = newTetromino(BLOCKS, COLORS, START_X, START_Y);
 
-drawBlock(blockGame, grid);
+drawTetromino(blockGame, grid);
+
+setInterval(() => moveDown(blockGame, grid), 500);
 
 const btns = document.querySelectorAll('[id*="btn-"]');
 
