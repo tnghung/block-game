@@ -93,7 +93,7 @@ const isFilled = (x, y, grid) => {
 };
 
 // check tetromino is movable
-const movable = (tetromino, grid, direction) => {
+const movable = (tetromino, grid, direction = DIRECTION.DOWN) => {
   let newX = tetromino.x;
   let newY = tetromino.y;
 
@@ -118,33 +118,33 @@ const movable = (tetromino, grid, direction) => {
   });
 };
 
-// --------------- Move tertromino ------------------
-// move tertromino down
-const moveDown = function (tertromino, grid) {
-  if (!movable(tertromino, grid, DIRECTION.DOWN)) return;
-  clearTetromino(tertromino, grid);
-  tertromino.x++;
-  drawTetromino(tertromino, grid);
+// --------------- Move tetromino ------------------
+// move tetromino down
+const moveDown = function (tetromino, grid) {
+  if (!movable(tetromino, grid, DIRECTION.DOWN)) return;
+  clearTetromino(tetromino, grid);
+  tetromino.x++;
+  drawTetromino(tetromino, grid);
 };
 
-// move tertromino left
-const moveLeft = function (tertromino, grid) {
-  if (!movable(tertromino, grid, DIRECTION.LEFT)) return;
-  clearTetromino(tertromino, grid);
-  tertromino.y--;
-  drawTetromino(tertromino, grid);
+// move tetromino left
+const moveLeft = function (tetromino, grid) {
+  if (!movable(tetromino, grid, DIRECTION.LEFT)) return;
+  clearTetromino(tetromino, grid);
+  tetromino.y--;
+  drawTetromino(tetromino, grid);
 };
 
-// move tertromino right
-const moveRight = function (tertromino, grid) {
-  if (!movable(tertromino, grid, DIRECTION.RIGHT)) return;
-  clearTetromino(tertromino, grid);
-  tertromino.y++;
-  drawTetromino(tertromino, grid);
+// move tetromino right
+const moveRight = function (tetromino, grid) {
+  if (!movable(tetromino, grid, DIRECTION.RIGHT)) return;
+  clearTetromino(tetromino, grid);
+  tetromino.y++;
+  drawTetromino(tetromino, grid);
 };
 
 // check rotatable
-const rotatable = (tetromino, grid) => {
+const rotatable = function (tetromino, grid) {
   // clone block
   let cloneBlock = JSON.parse(JSON.stringify(tetromino.block));
 
@@ -166,24 +166,40 @@ const rotatable = (tetromino, grid) => {
   });
 };
 
-// rotate tertromino
-const rotate = function (tertromino, grid) {
-  if (!rotatable(tertromino, grid)) return;
-  clearTetromino(tertromino, grid);
-  for (let y = 0; y < tertromino.block.length; y++) {
+// rotate tetromino
+const rotate = function (tetromino, grid) {
+  if (!rotatable(tetromino, grid)) return;
+  clearTetromino(tetromino, grid);
+  for (let y = 0; y < tetromino.block.length; y++) {
     for (let x = 0; x < y; x++) {
-      [tertromino.block[x][y], tertromino.block[y][x]] = [tertromino.block[y][x], tertromino.block[x][y]];
+      [tetromino.block[x][y], tetromino.block[y][x]] = [tetromino.block[y][x], tetromino.block[x][y]];
     }
   }
   tetromino.block.forEach((row) => row.reverse());
-  drawTetromino(tertromino, grid);
+  drawTetromino(tetromino, grid);
+};
+
+// hard drop tetromino
+const hardDrop = function (tetromino, grid) {
+  clearTetromino(tetromino, grid);
+  while (movable(tetromino, grid, DIRECTION.DOWN)) {
+    tetromino.x++;
+  }
+  drawTetromino(tetromino, grid);
 };
 
 const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
-const tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+let tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
 drawTetromino(tetromino, grid);
 
-setInterval(() => moveDown(tetromino, grid), 200);
+setInterval(() => {
+  if (movable(tetromino, grid)) {
+    moveDown(tetromino, grid);
+  } else {
+    tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+    drawTetromino(tetromino, grid);
+  }
+}, 500);
 
 // ----------- Add keyboard event ----------------
 document.addEventListener('keydown', (e) => {
@@ -204,6 +220,10 @@ document.addEventListener('keydown', (e) => {
     }
     case KEY.UP: {
       rotate(tetromino, grid);
+      break;
+    }
+    case KEY.SPACE: {
+      hardDrop(tetromino, grid);
       break;
     }
   }
@@ -227,6 +247,9 @@ btns.forEach((e) => {
         break;
       case 'btn-up':
         rotate(tetromino, grid);
+        break;
+      case 'btn-drop':
+        hardDrop(tetromino, grid);
         break;
       case 'btn-play': {
         body.classList.add('play');
