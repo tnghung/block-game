@@ -39,8 +39,8 @@ const fall = function () {
 };
 
 // Make a square block with  matrix 4x4
-for (let i = 1; i <= 16; i++) {
-  loading_square.innerHTML += '<div></div>';
-}
+// for (let i = 1; i <= 16; i++) {
+//   loading_square.innerHTML += '<div></div>';
+// }
 
 fall();
