@@ -232,19 +232,43 @@ const checkGrid = function (grid) {
   });
 };
 
+// ------------- Game object ---------------
+const Game = {
+  score: START_SCORE,
+  speed: START_SPEED,
+  level: 1,
+  state: GAME_STATE.END,
+  interval: null,
+};
 
+const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
+let tetromino = null;
 
-scoreElement.innerHTML = Game.score;
-setInterval(() => {
-  if (movable(tetromino, grid)) {
-    moveDown(tetromino, grid);
-  } else {
-    updateGrid(tetromino, grid);
-    checkGrid(grid);
-    tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
-    drawTetromino(tetromino, grid);
+// -----------------------------------------
+
+// game loop
+const gameLoop = function () {
+  if (Game.state === GAME_STATE.PLAY) {
+    if (movable(tetromino, grid)) {
+      moveDown(tetromino, grid);
+    } else {
+      updateGrid(tetromino, grid);
+      checkGrid(grid);
+      tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+      drawTetromino(tetromino, grid);
+    }
   }
-}, 500);
+};
+
+// game start
+const gameStart = function () {
+  Game.state = GAME_STATE.PLAY;
+  tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+
+  Game.interval = setInterval(gameLoop, Game.speed);
+};
+
+
 
 // ----------- Add keyboard event ----------------
 document.addEventListener('keydown', (e) => {
@@ -297,6 +321,7 @@ btns.forEach((e) => {
         hardDrop(tetromino, grid);
         break;
       case 'btn-play': {
+        gameStart();
         body.classList.add('play');
         if (body.classList.contains('pause')) {
           body.classList.remove('pause');
