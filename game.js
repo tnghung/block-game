@@ -45,7 +45,7 @@ const newTetromino = (blocks, colors, start_x, start_y) => {
   let index = Math.floor(Math.random() * blocks.length);
 
   return {
-    block: JSON.parse(JSON.stringify(blocks[index])),
+    block: blocks[index],
     color: colors[index],
     x: start_x,
     y: start_y,
@@ -127,7 +127,7 @@ const moveDown = function (tertromino, grid) {
   drawTetromino(tertromino, grid);
 };
 
-// move tertromino down
+// move tertromino left
 const moveLeft = function (tertromino, grid) {
   if (!movable(tertromino, grid, DIRECTION.LEFT)) return;
   clearTetromino(tertromino, grid);
@@ -135,11 +135,47 @@ const moveLeft = function (tertromino, grid) {
   drawTetromino(tertromino, grid);
 };
 
-// move tertromino down
+// move tertromino right
 const moveRight = function (tertromino, grid) {
   if (!movable(tertromino, grid, DIRECTION.RIGHT)) return;
   clearTetromino(tertromino, grid);
   tertromino.y++;
+  drawTetromino(tertromino, grid);
+};
+
+// check rotatable
+const rotatable = (tetromino, grid) => {
+  // clone block
+  let cloneBlock = JSON.parse(JSON.stringify(tetromino.block));
+
+  // rotate clone block
+  for (let y = 0; y < cloneBlock.length; y++) {
+    for (let x = 0; x < y; ++x) {
+      [cloneBlock[x][y], cloneBlock[y][x]] = [cloneBlock[y][x], cloneBlock[x][y]];
+    }
+  }
+  cloneBlock.forEach((row) => row.reverse());
+
+  // check rotated block is visible
+  return cloneBlock.every((row, i) => {
+    return row.every((value, j) => {
+      let x = tetromino.x + i;
+      let y = tetromino.y + j;
+      return value === 0 || (isInGrid(x, y, grid) && !isFilled(x, y, grid));
+    });
+  });
+};
+
+// rotate tertromino
+const rotate = function (tertromino, grid) {
+  if (!rotatable(tertromino, grid)) return;
+  clearTetromino(tertromino, grid);
+  for (let y = 0; y < tertromino.block.length; y++) {
+    for (let x = 0; x < y; x++) {
+      [tertromino.block[x][y], tertromino.block[y][x]] = [tertromino.block[y][x], tertromino.block[x][y]];
+    }
+  }
+  tetromino.block.forEach((row) => row.reverse());
   drawTetromino(tertromino, grid);
 };
 
@@ -166,6 +202,10 @@ document.addEventListener('keydown', (e) => {
       moveRight(tetromino, grid);
       break;
     }
+    case KEY.UP: {
+      rotate(tetromino, grid);
+      break;
+    }
   }
 });
 
@@ -184,6 +224,9 @@ btns.forEach((e) => {
         break;
       case 'btn-right':
         moveRight(tetromino, grid);
+        break;
+      case 'btn-up':
+        rotate(tetromino, grid);
         break;
       case 'btn-play': {
         body.classList.add('play');

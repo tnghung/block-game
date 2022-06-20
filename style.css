@@ -191,6 +191,7 @@ i.bxs-sun {
 
 .menu-section button {
   margin-bottom: 30px;
+  font-size: 24px;
 }
 
 .btn-width {
@@ -242,13 +243,14 @@ i.bxs-sun {
 
 .how-to td {
   padding: 10px;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .keycap {
   width: calc(var(--button-size) * 2);
   color: var(--setting-btn-color);
-  font-size: 30px;
+  font-size: 26px;
+  text-transform: capitalize;
 }
 
 /* images fall effect */

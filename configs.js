@@ -50,7 +50,7 @@ const DIRECTION = {
   LEFT: 'LEFT',
   RIGHT: 'RIGHT',
   DOWN: 'DOWN',
-  ROTATE: 'ROTATE',
+  UP: 'ROTATE',
 };
 
 //  keycode
