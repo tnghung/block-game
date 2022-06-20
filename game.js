@@ -1,11 +1,8 @@
-const field = document.querySelectorAll('.block');
+let field = document.getElementsByClassName('block');
 
-console.log(field);
-
-// Init new game grid function
-const newGrid = function (width, height) {
-  // Make a[][] array
-  const grid = new Array(height);
+// initial new game grid
+const newGrid = (width, height) => {
+  let grid = new Array(height);
   for (let i = 0; i < height; i++) {
     grid[i] = new Array(width);
   }
@@ -27,24 +24,24 @@ const newGrid = function (width, height) {
   };
 };
 
-// Reset grid and reset field color
-const resetGrid = function (grid) {
-  // rows
+// reset grid and field color
+const resetGrid = (grid) => {
   for (let i = 0; i < grid.height; i++) {
-    // columns
+    // row
     for (let j = 0; j < grid.width; j++) {
+      // col
       grid.board[i][j].value = 0;
     }
   }
 
-  // Reset field background
+  // reset field background
   Array.from(field).forEach((e) => {
     e.style.background = TRANSPARENT;
   });
 };
 
-// Create new block function
-const newTetromino = function (blocks, colors, start_x, start_y) {
+// create new Tetromino
+const newTetromino = (blocks, colors, start_x, start_y) => {
   let index = Math.floor(Math.random() * blocks.length);
 
   return {
@@ -55,8 +52,8 @@ const newTetromino = function (blocks, colors, start_x, start_y) {
   };
 };
 
-// Draw block on field
-const drawTetromino = function (tetromino, grid) {
+// draw tetromino on field
+const drawTetromino = (tetromino, grid) => {
   tetromino.block.forEach((row, i) => {
     row.forEach((value, j) => {
       let x = tetromino.x + i;
@@ -68,8 +65,8 @@ const drawTetromino = function (tetromino, grid) {
   });
 };
 
-// Clear block on field
-const clearTetromino = function (tetromino, grid) {
+// clear tetromino
+const clearTetromino = (tetromino, grid) => {
   tetromino.block.forEach((row, i) => {
     row.forEach((value, j) => {
       let x = tetromino.x + i;
@@ -81,22 +78,55 @@ const clearTetromino = function (tetromino, grid) {
   });
 };
 
-// Move block down
-const moveDown = function (block, grid) {
-  clearTetromino(block, grid);
-  block.x++;
-  drawTetromino(block, grid);
+// check point is in grid
+const isInGrid = (x, y, grid) => {
+  return x < grid.height && x >= 0 && y >= 0 && y < grid.width;
 };
 
-// Check block is touch bottom?
+// check point is filled or blank
+const isFilled = (x, y, grid) => {
+  if (!isInGrid(x, y, grid)) {
+    return false;
+  } else {
+    return grid.board[x][y].value !== 0;
+  }
+};
 
-// --------- Demo ----------
-let grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
-let blockGame = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+// check tetromino is movable
+const movable = (tetromino, grid, direction) => {
+  let newX = tetromino.x;
+  let newY = tetromino.y;
 
-drawTetromino(blockGame, grid);
+  switch (direction) {
+    case DIRECTION.DOWN:
+      newX = tetromino.x + 1;
+      break;
+  }
 
-setInterval(() => moveDown(blockGame, grid), 500);
+  return tetromino.block.every((row, i) => {
+    return row.every((value, j) => {
+      let x = newX + i;
+      let y = newY + j;
+      return value === 0 || (isInGrid(x, y, grid) && !isFilled(x, y, grid));
+    });
+  });
+};
+
+// move tertromino down
+const moveDown = function (tertromino, grid) {
+  if (!movable(tertromino, grid, DIRECTION.DOWN)) return;
+  clearTetromino(tertromino, grid);
+  tertromino.x++;
+  drawTetromino(tertromino, grid);
+};
+
+const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
+const tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
+drawTetromino(tetromino, grid);
+
+setInterval(() => {
+  moveDown(tetromino, grid);
+}, 100);
 
 const btns = document.querySelectorAll('[id*="btn-"]');
 
