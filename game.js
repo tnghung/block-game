@@ -1,6 +1,9 @@
-let field = document.getElementsByClassName('block');
-let scoreElement = document.querySelector('#score');
-let levelElement = document.querySelector('#level');
+const field = document.getElementsByClassName('block');
+const scoreElement = document.querySelector('#score');
+const levelElement = document.querySelector('#level');
+const body = document.querySelector('body');
+const rsLevelElement = document.querySelector('#result-level');
+const rsScoreElement = document.querySelector('#result-score');
 
 // initial new game grid
 const newGrid = (width, height) => {
@@ -243,6 +246,7 @@ const Game = {
 
 const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
 let tetromino = null;
+scoreElement.innerHTML = Game.score;
 
 // -----------------------------------------
 
@@ -255,7 +259,18 @@ const gameLoop = function () {
       updateGrid(tetromino, grid);
       checkGrid(grid);
       tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
-      drawTetromino(tetromino, grid);
+
+      // check grid is full -> end game
+      if (movable(tetromino, grid)) {
+        drawTetromino(tetromino, grid);
+      } else {
+        Game.state = GAME_STATE.END;
+        body.classList.add('end');
+        body.classList.remove('play');
+
+        rsLevelElement.innerHTML = Game.level;
+        rsScoreElement.innerHTML = Game.score;
+      }
     }
   }
 };
@@ -335,7 +350,6 @@ const btns = document.querySelectorAll('[id*="btn-"]');
 
 btns.forEach((e) => {
   const btn_id = e.getAttribute('id');
-  const body = document.querySelector('body');
   e.addEventListener('click', () => {
     switch (btn_id) {
       case 'btn-down':
