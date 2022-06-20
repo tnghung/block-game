@@ -78,12 +78,12 @@ const clearTetromino = (tetromino, grid) => {
   });
 };
 
-// check point is in grid
+// check tetromino is in grid
 const isInGrid = (x, y, grid) => {
   return x < grid.height && x >= 0 && y >= 0 && y < grid.width;
 };
 
-// check point is filled or blank
+// check tetromino is filled or blank
 const isFilled = (x, y, grid) => {
   if (!isInGrid(x, y, grid)) {
     return false;
@@ -188,6 +188,19 @@ const hardDrop = function (tetromino, grid) {
   drawTetromino(tetromino, grid);
 };
 
+// update grid when tetromino down
+const updateGrid = function (tetromino, grid) {
+  tetromino.block.forEach((row, i) => {
+    row.forEach((val, j) => {
+      let x = tetromino.x + i;
+      let y = tetromino.y + j;
+      if (val > 0 && isInGrid(x, y, grid)) {
+        grid.board[x][y].value = val;
+      }
+    });
+  });
+};
+
 const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
 let tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
 drawTetromino(tetromino, grid);
@@ -196,6 +209,7 @@ setInterval(() => {
   if (movable(tetromino, grid)) {
     moveDown(tetromino, grid);
   } else {
+    updateGrid(tetrominom, grid);
     tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
     drawTetromino(tetromino, grid);
   }
