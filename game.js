@@ -101,6 +101,12 @@ const movable = (tetromino, grid, direction) => {
     case DIRECTION.DOWN:
       newX = tetromino.x + 1;
       break;
+    case DIRECTION.LEFT:
+      newY = tetromino.y - 1;
+      break;
+    case DIRECTION.RIGHT:
+      newY = tetromino.y + 1;
+      break;
   }
 
   return tetromino.block.every((row, i) => {
@@ -112,6 +118,7 @@ const movable = (tetromino, grid, direction) => {
   });
 };
 
+// --------------- Move tertromino ------------------
 // move tertromino down
 const moveDown = function (tertromino, grid) {
   if (!movable(tertromino, grid, DIRECTION.DOWN)) return;
@@ -120,13 +127,47 @@ const moveDown = function (tertromino, grid) {
   drawTetromino(tertromino, grid);
 };
 
+// move tertromino down
+const moveLeft = function (tertromino, grid) {
+  if (!movable(tertromino, grid, DIRECTION.LEFT)) return;
+  clearTetromino(tertromino, grid);
+  tertromino.y--;
+  drawTetromino(tertromino, grid);
+};
+
+// move tertromino down
+const moveRight = function (tertromino, grid) {
+  if (!movable(tertromino, grid, DIRECTION.RIGHT)) return;
+  clearTetromino(tertromino, grid);
+  tertromino.y++;
+  drawTetromino(tertromino, grid);
+};
+
 const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
 const tetromino = newTetromino(BLOCKS, COLORS, START_X, START_Y);
 drawTetromino(tetromino, grid);
 
-setInterval(() => {
-  moveDown(tetromino, grid);
-}, 100);
+setInterval(() => moveDown(tetromino, grid), 200);
+
+// ----------- Add keyboard event ----------------
+document.addEventListener('keydown', (e) => {
+  e.preventDefault();
+  let key = e.keyCode;
+  switch (key) {
+    case KEY.DOWN: {
+      moveDown(tetromino, grid);
+      break;
+    }
+    case KEY.LEFT: {
+      moveLeft(tetromino, grid);
+      break;
+    }
+    case KEY.RIGHT: {
+      moveRight(tetromino, grid);
+      break;
+    }
+  }
+});
 
 const btns = document.querySelectorAll('[id*="btn-"]');
 
@@ -135,6 +176,15 @@ btns.forEach((e) => {
   const body = document.querySelector('body');
   e.addEventListener('click', () => {
     switch (btn_id) {
+      case 'btn-down':
+        moveDown(tetromino, grid);
+        break;
+      case 'btn-left':
+        moveLeft(tetromino, grid);
+        break;
+      case 'btn-right':
+        moveRight(tetromino, grid);
+        break;
       case 'btn-play': {
         body.classList.add('play');
         if (body.classList.contains('pause')) {
