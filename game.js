@@ -268,7 +268,27 @@ const gameStart = function () {
   Game.interval = setInterval(gameLoop, Game.speed);
 };
 
+// game pause
+const gamePause = function () {
+  Game.state = GAME_STATE.PAUSE;
+};
 
+// game resume
+const gameResume = function () {
+  Game.state = GAME_STATE.PLAY;
+};
+
+// game reset
+const gameReset = function () {
+  clearInterval(Game.interval);
+  resetGrid(grid);
+  Game.score = START_SCORE;
+  Game.level - START_SPEED;
+  Game.state = GAME_STATE.END;
+  Game.level = 1;
+  Game.interval = null;
+  tetromino = null;
+};
 
 // ----------- Add keyboard event ----------------
 document.addEventListener('keydown', (e) => {
@@ -294,6 +314,19 @@ document.addEventListener('keydown', (e) => {
     case KEY.SPACE: {
       hardDrop(tetromino, grid);
       break;
+    }
+    case KEY.P: {
+      let btn_play = document.querySelector('#btn-play');
+      if (Game.state === GAME_STATE.PAUSE) {
+        gamePause();
+        body.classList.add('pause');
+        body.classList.remove('play');
+        btn_play.innerHTML = 'Resume';
+      } else {
+        body.classList.remove('pause');
+        body.classList.add('play');
+        gameResume();
+      }
     }
   }
 });
@@ -321,11 +354,13 @@ btns.forEach((e) => {
         hardDrop(tetromino, grid);
         break;
       case 'btn-play': {
-        gameStart();
         body.classList.add('play');
-        if (body.classList.contains('pause')) {
+        if (Game.state === GAME_STATE.PAUSE) {
           body.classList.remove('pause');
+          gameResume();
+          return;
         }
+        gameStart();
         break;
       }
       case 'btn-theme': {
@@ -338,6 +373,7 @@ btns.forEach((e) => {
         break;
       }
       case 'btn-pause': {
+        gamePause();
         const btn_play = body.querySelector('#btn-play');
         btn_play.textContent = 'Resume';
         body.classList.remove('play');
@@ -345,8 +381,10 @@ btns.forEach((e) => {
         break;
       }
       case 'btn-new-game': {
+        gameReset();
         body.classList.add('play');
         body.classList.remove('pause');
+        gameStart();
         break;
       }
     }
