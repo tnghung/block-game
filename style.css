@@ -127,6 +127,14 @@ i.bxs-sun {
   display: none;
 }
 
+.dark i.bxs-moon {
+  display: none;
+}
+
+.dark i.bxs-sun {
+  display: block;
+}
+
 .btn {
   width: var(--button-size);
   height: var(--button-size);
@@ -207,12 +215,12 @@ i.bxs-sun {
 
 .result {
   text-align: center;
-  margin-bottom: 90px;
   display: none;
 }
 
 .result p {
   color: var(--setting-btn-color);
+  text-transform: uppercase;
 }
 
 .result h1 {
@@ -414,6 +422,10 @@ i.bxs-sun {
 .pause #btn-new-game,
 .end #btn-new-game {
   display: block;
+}
+
+.end .infor-game {
+  display: none;
 }
 
 .end .result {

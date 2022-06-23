@@ -228,11 +228,14 @@ const deleteRow = function (row_index, grid) {
 
 // check grid for delete row
 const checkGrid = function (grid) {
+  let row_count = 0;
   grid.board.forEach((row, i) => {
     if (checkFullRow(row)) {
       deleteRow(i, grid);
+      row_count++;
     }
   });
+  if (row_count > 0) updateGame(row_count);
 };
 
 // ------------- Game object ---------------
@@ -246,7 +249,7 @@ const Game = {
 
 const grid = newGrid(GRID_WIDTH, GRID_HEIGHT);
 let tetromino = null;
-scoreElement.innerHTML = Game.score;
+scoreElement.innerHTML = 'Score: ' + Game.score;
 
 // -----------------------------------------
 
@@ -303,6 +306,28 @@ const gameReset = function () {
   Game.level = 1;
   Game.interval = null;
   tetromino = null;
+  scoreElement.innerHTML = 'Score: 0';
+  levelElement.innerHTML = 'Lv: 1';
+};
+
+// Update level and score
+const updateGame = function (row_count) {
+  Game.score += row_count * MAIN_SCORE + (row_count - 1) * BONUS_SCORE;
+
+  // Level up
+  Game.level = Math.floor(Game.score / POINT_LEVEL_UP) + 1;
+
+  // Speed up
+  let new_speed = Game.speed < MAX_SPEED ? MAX_SPEED : START_SPEED - Game.level * 50;
+
+  if (new_speed !== Game.speed) {
+    Game.speed = new_speed;
+    clearInterval(Game.interval);
+    Game.interval = setInterval(gameLoop, Game.speed);
+  }
+
+  levelElement.innerHTML = 'Lv. ' + Game.level;
+  scoreElement.innerHTML = 'Score: ' + Game.score;
 };
 
 // ----------- Add keyboard event ----------------
@@ -379,6 +404,14 @@ btns.forEach((e) => {
       }
       case 'btn-theme': {
         body.classList.toggle('dark');
+        let status_bar_chrome = document.querySelector("meta[name='theme-color'");
+        status_bar_chrome.setAttribute('content', body.classList.contains('dark') ? '#243441' : '#ECF0F3');
+
+        let status_bar_win = document.querySelector("meta[name='msapplication-navbutton-color'");
+        status_bar_win.setAttribute('content', body.classList.contains('dark') ? '#243441' : '#ECF0F3');
+
+        let status_bar_ios = document.querySelector("meta[name='apple-mobile-web-app-status-bar-style'");
+        status_bar_ios.setAttribute('content', body.classList.contains('dark') ? '#243441' : '#ECF0F3');
         break;
       }
       case 'btn-help': {
