@@ -105,7 +105,11 @@ button {
 .block {
   width: var(--block-size);
   height: var(--block-size);
-  border: 0.1px solid var(--bg-color);
+  border: 1px solid rgba(51, 52, 51, 0.211);
+}
+
+.dark .block{
+  border: 1px solid rgba(255, 255, 255, 0.416);
 }
 
 .setting-section {

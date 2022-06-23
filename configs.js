@@ -79,7 +79,7 @@ const MAX_SPEED = 50;
 const POINT_LEVEL_UP = 500;
 
 const MAIN_SCORE = 100;
-const BONUS_SCORE = 30;
+const BONUS_SCORE = 50;
 
 // game state
 const GAME_STATE = {
