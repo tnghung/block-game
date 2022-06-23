@@ -306,6 +306,7 @@ const gameReset = function () {
   Game.level = 1;
   Game.interval = null;
   tetromino = null;
+  body.classList.remove('end');
   scoreElement.innerHTML = 'Score: 0';
   levelElement.innerHTML = 'Lv: 1';
 };
